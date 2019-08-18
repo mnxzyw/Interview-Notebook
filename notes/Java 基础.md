@@ -63,8 +63,8 @@ boolean 只有两个值：true、false，可以使用 1 bit 来存储，但是�
 基本类型都有对应的包装类型，基本类型与其对应的包装类型之间的赋值使用自动装箱与拆箱完成。
 
 ```java
-Integer x = 2;     // 装箱
-int y = x;         // 拆箱
+Integer x = 2;     // 装箱  调用了 Integer.valueOf(2);
+int y = x;         // 拆箱  调用了 Integer.intValue(x);
 ```
 
 ## 缓存池
@@ -78,6 +78,11 @@ new Integer(123) 与 Integer.valueOf(123) 的区别在于：
 Integer x = new Integer(123);
 Integer y = new Integer(123);
 System.out.println(x == y);    // false
+
+Integer x = 123;     //调用了Integer.valueOf(123);
+Integer y = 123;  //如果数值在[-128,127]之间，便返回指向缓冲池中已经存在的对象的引用；否则创建一个新的Integer对象。
+System.out.println(x==y);     //true
+
 Integer z = Integer.valueOf(123);
 Integer k = Integer.valueOf(123);
 System.out.println(z == k);   // true
@@ -154,7 +159,7 @@ System.out.println(m == n); // true
 
 ## 概览
 
-String 被声明为 final，因此它不可被继承。
+String 被声明为 final，因此它不可被继承。(Integer等包装类也不能被继承)
 
 在 Java 8 中，String 内部使用 char 数组存储数据。
 
@@ -1325,7 +1330,7 @@ Class 和 java.lang.reflect 一起对反射提供了支持，java.lang.reflect �
 
 -  **Field** ：可以使用 get() 和 set() 方法读取和修改 Field 对象关联的字段；
 -  **Method** ：可以使用 invoke() 方法调用与 Method 对象关联的方法；
--  **Constructor** ：可以用 Constructor 创建新的对象。
+-  **Constructor** ：可以用 Constructor 的 newInstance() 创建新的对象。
 
 **反射的优点：** 
 
@@ -1441,4 +1446,4 @@ Java 注解是附加在代码中的一些元信息，用于一些工具在编译
 更多精彩内容将发布在微信公众号 CyC2018 上，你也可以在公众号后台和我交流学习和求职相关的问题。另外，公众号提供了该项目的 PDF 等离线阅读版本，后台回复 "下载" 即可领取。公众号也提供了一份技术面试复习大纲，不仅系统整理了面试知识点，而且标注了各个知识点的重要程度，从而帮你理清多而杂的面试知识点，后台回复 "大纲" 即可领取。我基本是按照这个大纲来进行复习的，对我拿到了 BAT 头条等 Offer 起到很大的帮助。你们完全可以和我一样根据大纲上列的知识点来进行复习，就不用看很多不重要的内容，也可以知道哪些内容很重要从而多安排一些复习时间。
 
 
-<br><div align="center"><img width="320px" src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/other/公众号海报.png"></img></div>
+<br><div align="center"><img width="320px" src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/other/公众号海报6.png"></img></div>
